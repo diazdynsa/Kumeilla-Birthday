@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday, Memei!</title>
+  <link rel="icon" href="https://i.ibb.co.com/hXZsYxZ/heart.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mali:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- PAGE 1: Hero -->
+  <div class="page active" id="page1">
+    <div class="card-box">
+      <span class="badge-tag">🎂 a little page made just for you</span>
+      <img src="1.gif" alt="Birthday gif" class="gift-gif" />
+      <h1>happy birthday, <span class="highlight">meii!</span></h1>
+      <p class="hero-date">22 october</p>
+      <p class="hero-fullname">Kumeilla Az-Zahra</p>
+      <button class="button" onclick="goToPage(2)">buka &rsaquo;</button>
+    </div>
+  </div>
+
+  <!-- PAGE 2: Envelope -->
+  <div class="page" id="page2">
+    <div class="card-box">
+      <span class="badge-tag">a note from Diazzz</span>
+      <img src="write.gif" alt="Letter gif" class="gift-gif" />
+      <p>ada pesan kecil yang disiapkan buat kamu mei.</p>
+      <button class="button" onclick="goToPage(3)">buka pesan &rsaquo;</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3: Chapters + Chat + Signature -->
+  <div class="page" id="page3">
+    <div class="card-box">
+
+      <span class="badge-tag">for Memei, with sincerity</span>
+      <h2>happy birthday <span class="highlight">:)</span></h2>
+
+      <!-- Letter View (chapter reader + clue) toggled as one unit -->
+      <div id="letterView">
+
+        <!-- Chapter Reader -->
+        <div class="chapter-reader">
+          <div class="chapter-progress-bar">
+            <span class="progress-label" id="progressLabel">01 / 04</span>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill" style="width:25%"></div>
+            </div>
+          </div>
+          <div class="chapter-content" id="chapterContent"></div>
+          <div class="chapter-nav">
+            <button class="btn-chapter btn-prev" id="btnPrev" onclick="prevChapter()">&#8592; sebelumnya</button>
+            <button class="btn-chapter btn-next" id="btnNext" onclick="nextChapter()">lanjut &#8594;</button>
+          </div>
+        </div>
+
+        <!-- Clue Section -->
+        <div id="clueSection" class="clue-section" style="display: none;">
+          <p class="clue-text">eh, bentar. masa hadiah dari gw doang? coba cek lagi, siapa tau ada dua orang yang lebih lu tunggu ucapannya daripada ucapan gw wkwk.</p>
+          <p class="clue-hint">psst... ada dua pesan yang masih malu-malu buat muncul.</p>
+          <button class="button btn-clue" onclick="triggerReveal()">coba klik ini deh👀</button>
+        </div>
+
+      </div><!-- /#letterView -->
+
+      <!-- Reveal Transition -->
+      <div id="revealTransition" class="reveal-transition" style="display: none;">
+        🎁
+      </div>
+
+      <!-- Idol Chat Section -->
+      <div id="idolSection" style="display: none;">
+        <!-- Back control -->
+        <button class="btn-back-letter" onclick="backToLetter()">&#8592; kembali ke surat</button>
+        <div class="section-divider"></div>
+        <p class="section-label">special messages from your favorites</p>
+
+        <!-- Martin Cortis -->
+        <div class="chat-convo" data-idol="martin">
+          <div class="chat-header">
+            <div class="chat-avatar">
+              <img src="idol1.jpg" alt="Martin Cortis" />
+            </div>
+            <span class="chat-name">Martin Cortis</span>
+          </div>
+          <div class="chat-bubbles" id="martinBubbles"></div>
+          <button class="btn-reveal" id="btnMartin" onclick="revealChat('martin')">buka pesan</button>
+        </div>
+
+        <!-- Ni-ki ENHYPEN -->
+        <div class="chat-convo" data-idol="niki">
+          <div class="chat-header">
+            <div class="chat-avatar">
+              <img src="idol2.jpg" alt="Ni-ki ENHYPEN" />
+            </div>
+            <span class="chat-name">Ni-ki &middot; ENHYPEN</span>
+          </div>
+          <div class="chat-bubbles" id="nikiBubbles"></div>
+          <button class="btn-reveal" id="btnNiki" onclick="revealChat('niki')">buka pesan</button>
+        </div>
+
+        <!-- Closing section: hidden until both greetings are completed -->
+        <div id="closingSection" class="closing-section" style="display: none;">
+          <p class="chat-disclaimer">SENENG GAA.</p>
+          <a href="https://wa.me/6283111193026?text=terimakasih%20kak%20diaz%20ganteng%2C%20baik%20hati%2C%20rajin%20menabung%2C%20kembaran%20james"
+             target="_blank" class="btn-matcha-wa-small">klik untuk mengakui kalo gw ini Teknik Baik&#x1F609;&#x1F44D;</a>
+        </div>
+
+      </div>
+
+      <!-- Signature + Easter egg -->
+      <div class="signature-section">
+        <p class="signature-text">made with care by DIAZZZ</p>
+        <button class="easter-trigger" onclick="openEasterEgg()" title="psst...">&#10022;</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Easter Egg Modal -->
+  <div class="easter-backdrop" id="easterBackdrop" onclick="closeEasterEgg()"></div>
+  <div class="easter-modal" id="easterModal" role="dialog" aria-modal="true" aria-label="Easter egg dari Diaz">
+    <button class="easter-close" onclick="closeEasterEgg()" aria-label="tutup">&#10005;</button>
+    <div class="easter-photo">
+      <img src="diaz.jpg" alt="Diaz Dynasti Saputra"
+           onerror="this.style.display='none';document.getElementById('easterPlaceholder').style.display='flex'" />
+      <div class="easter-photo-placeholder" id="easterPlaceholder">
+        <span>&#128248;</span>
+        <small>tambahkan foto Diaz di sini<br>(rename file jadi <code>diaz.jpg</code>)</small>
+      </div>
+    </div>
+    <p class="easter-message">surpriseee, ternyata ada bonus satu orang yang ikut nimbrung di halaman ini wkwk.</p>
+    <p class="easter-sign">sekali lagi, happy birthday, meii!</p>
+  </div>
+
+  <audio id="bg-music" src="Party.mp3" loop muted></audio>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
